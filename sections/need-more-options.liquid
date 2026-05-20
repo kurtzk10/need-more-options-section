@@ -85,7 +85,7 @@
 
   .need-more-options__heading {
     width: 100%;
-    max-width: 87rem;
+    max-width: 80rem;
     margin-inline: auto;
     margin-block: 0;
     text-align: left;
@@ -102,7 +102,7 @@
     grid-template-columns: repeat(2, minmax(0, 60%));
     gap: var(--need-more-options-card-gap, 1.5rem);
     width: 100%;
-    max-width: 87rem; /* change this to change card size */
+    max-width: 80rem; /* change this to change card size */
     margin-inline: auto;
   }
 
@@ -131,8 +131,7 @@
     min-height: calc(3 * 1.25em);
     max-height: calc(3 * 1.25em);
     text-transform: uppercase;
-    text-align: justify;
-    text-align-last: center;
+    text-align: center;
     text-justify: inter-word;
     hyphens: none;
     color: var(--need-more-options-accent);
@@ -204,36 +203,40 @@
   }
 
   .need-more-options__carousel {
-    width: 92% !important;  
+    width: 100% !important;  
     margin-inline: auto;
     overflow: hidden;
   }
 
   .need-more-options__slideshow {
     --slide-width: min(90vw, 50rem);
-    width: 100% !important;
     position: relative;
   }
 
   .need-more-options__slideshow slideshow-slides {
-    gap: var(--need-more-options-card-gap, 1rem);
-    width: 100% !important;
-    max-width: 100% !important;
+    gap: var(--need-more-options-card-gap);
     padding-inline: max(1rem, calc((100% - var(--slide-width)) / 2));
     scroll-padding-inline: max(1rem, calc((100% - var(--slide-width)) / 2));
   }
 
   .need-more-options__slide {
     width: 100% !important;
-    max-width: 100% !important; 
     flex: 0 0 auto;
     scroll-snap-align: center;
     min-width: 0;
   }
 
-  .need-more-options__slideshow slideshow-controls {
+  .need-more-options__slideshow .slideshow-controls {
     margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
   }
+
+.need-more-options__slideshow .slideshow-control.button[aria-selected="true"] {
+  --color: #E4772E !important;
+}
 
   @media screen and (max-width: 749px) {
     .need-more-options:has(.need-more-options__carousel) {
