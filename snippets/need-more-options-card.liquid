@@ -1,0 +1,76 @@
+{%- doc -%}
+  Renders a design-center option card for the need-more-options section.
+
+  @param {object} block - Section block with card settings
+{%- enddoc -%}
+
+{% liquid
+  assign theme = block.settings.theme | default: 'vinyl'
+
+  case theme
+    when 'wood'
+      assign accent_color = block.settings.accent_color | default: '#1D4F91'
+      assign card_background = block.settings.card_background | default: '#FEF2E9'
+      assign button_label_mobile_default = 'Share Link to Wood Design Center'
+    else
+      assign accent_color = block.settings.accent_color | default: '#E4772E'
+      assign card_background = block.settings.card_background | default: '#FEF2E9'
+      assign button_label_mobile_default = 'Share link to Vinyl Design Center'
+  endcase
+
+  assign button_label_mobile = block.settings.button_label_mobile | default: button_label_mobile_default
+%}
+
+<article
+  class="need-more-options__card need-more-options__card--{{ theme }}"
+  style="--need-more-options-accent: {{ accent_color }}; ---bg: {{ card_background }};"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.heading != blank %}
+    <h3 class="need-more-options__card-heading">
+      {{ block.settings.heading }}
+    </h3>
+  {% endif %}
+
+  {% if block.settings.image != blank %}
+    <div class="need-more-options__card-media">
+      {% render 'image',
+        image: block.settings.image,
+        class: 'need-more-options__card-image',
+        alt_text_fallback: block.settings.heading
+      %}
+    </div>
+  {% endif %}
+
+  {% if block.settings.button_label != blank or button_label_mobile != blank %}
+    <div class="need-more-options__card-actions">
+      <a
+        {% if block.settings.button_link != blank %}
+          href="{{ block.settings.button_link }}"
+        {% else %}
+          role="link"
+          aria-disabled="true"
+        {% endif %}
+        class="need-more-options__button button-unstyled"
+        style="--hover-accent: {{  accent_color }};"
+      >
+        {% if block.settings.button_label != blank %}
+          <span class="need-more-options__button-label hidden--mobile">
+            {{ block.settings.button_label }}
+          </span>
+        {% endif %}
+        {% if button_label_mobile != blank %}
+          <span class="need-more-options__button-label hidden--desktop">
+            {{ button_label_mobile }}
+          </span>
+        {% endif %}
+      </a>
+
+      {% if block.settings.disclaimer != blank %}
+        <p class="need-more-options__disclaimer">
+          {{ block.settings.disclaimer }}
+        </p>
+      {% endif %}
+    </div>
+  {% endif %}
+</article>
